@@ -2,6 +2,7 @@ const express = require("express");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
 const pool = require("../config/db");
+const authMiddleware = require("../middleware/authMiddleware");
 
 const router = express.Router();
 
@@ -89,6 +90,28 @@ router.post("/login", async (req, res) => {
     res.status(500).json({
       message: "Server Error",
     });
+  }
+});
+
+// Protected Profile Route
+router.get("/profile", authMiddleware, async (req, res) => {
+  try {
+    const userResult = await pool.query(
+      "SELECT id, name, email, created_at FROM users WHERE id = $1",
+      [req.user.id]
+    );
+
+    if (userResult.rows.length === 0) {
+      return res.status(404).json({ message: "User not found" });
+    }
+
+    res.json({
+      message: "Profile fetched successfully",
+      user: userResult.rows[0],
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Server Error" });
   }
 });
 
