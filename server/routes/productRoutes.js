@@ -28,4 +28,23 @@ router.post("/", authMiddleware, async (req, res) => {
   }
 });
 
+// Get All Products
+router.get("/", authMiddleware, async (req, res) => {
+  try {
+    const result = await pool.query(
+      "SELECT * FROM products ORDER BY id DESC"
+    );
+
+    res.json({
+      count: result.rows.length,
+      products: result.rows,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Server Error",
+    });
+  }
+});
+
 module.exports = router;
