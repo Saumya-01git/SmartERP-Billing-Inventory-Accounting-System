@@ -56,4 +56,26 @@ router.post("/", authMiddleware, async (req, res) => {
   }
 });
 
+// Get All Companies
+router.get("/", authMiddleware, async (req, res) => {
+  try {
+    const result = await pool.query(
+      `SELECT * FROM companies
+       WHERE user_id = $1
+       ORDER BY created_at DESC`,
+      [req.user.id]
+    );
+
+    res.json({
+      count: result.rows.length,
+      companies: result.rows,
+    });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({
+      message: "Server Error",
+    });
+  }
+});
+
 module.exports = router;
