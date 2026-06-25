@@ -15,32 +15,42 @@ body {
 }
 
 .sidebar {
-  width: 250px;
+  width: 260px;
   background: #111827;
   color: white;
-  padding: 24px;
+  padding: 28px 24px;
 }
 
 .sidebar h2 {
-  margin-bottom: 8px;
+  margin: 0 0 8px;
+  font-size: 28px;
+  color: white;
 }
 
 .sidebar p {
   color: #9ca3af;
   font-size: 14px;
-  margin-bottom: 32px;
+  margin: 0 0 36px;
 }
 
 .sidebar nav {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 14px;
 }
 
 .sidebar a {
   color: #d1d5db;
   text-decoration: none;
   cursor: pointer;
+  padding: 10px 12px;
+  border-radius: 8px;
+}
+
+.sidebar a:first-child,
+.sidebar a:hover {
+  background: #1f2937;
+  color: white;
 }
 
 .main {
@@ -50,17 +60,23 @@ body {
 
 .header {
   background: white;
-  padding: 24px;
-  border-radius: 12px;
+  padding: 28px 32px;
+  border-radius: 16px;
   margin-bottom: 24px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
 }
 
 .header h1 {
   margin: 0;
+  font-size: 36px;
+  line-height: 1.2;
+  color: #111827;
 }
 
 .header p {
+  margin: 8px 0 0;
   color: #6b7280;
+  font-size: 16px;
 }
 
 .token-box {
@@ -71,18 +87,20 @@ body {
 
 .token-box input {
   flex: 1;
-  padding: 12px;
+  padding: 13px 14px;
   border: 1px solid #d1d5db;
-  border-radius: 8px;
+  border-radius: 10px;
+  font-size: 14px;
 }
 
 button {
   padding: 12px 18px;
   border: none;
-  border-radius: 8px;
+  border-radius: 10px;
   background: #2563eb;
   color: white;
   cursor: pointer;
+  font-weight: 600;
 }
 
 button:hover {
@@ -90,7 +108,7 @@ button:hover {
 }
 
 .error {
-  color: red;
+  color: #dc2626;
   margin-bottom: 16px;
 }
 
@@ -103,29 +121,64 @@ button:hover {
 .card {
   background: white;
   padding: 24px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
 }
 
 .card p {
   color: #6b7280;
   margin: 0;
+  font-size: 15px;
 }
 
 .card h2 {
-  font-size: 32px;
-  margin: 12px 0 0;
+  font-size: 34px;
+  margin: 14px 0 0;
+  color: #111827;
 }
 
 .quick-actions {
   margin-top: 32px;
   background: white;
-  padding: 24px;
-  border-radius: 12px;
+  padding: 26px;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.quick-actions h2 {
+  margin: 0 0 16px;
 }
 
 .quick-actions div {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .sidebar {
+    width: 100%;
+  }
+
+  .cards {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .token-box {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 600px) {
+  .cards {
+    grid-template-columns: 1fr;
+  }
+
+  .main {
+    padding: 20px;
+  }
 }
