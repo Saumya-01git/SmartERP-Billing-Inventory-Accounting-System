@@ -7,6 +7,7 @@ const authRoutes = require("./routes/authRoutes");
 const productRoutes = require("./routes/productRoutes");
 const dashboardRoutes = require("./routes/dashboardRoutes");
 const companyRoutes = require("./routes/companyRoutes");
+const ledgerRoutes = require("./routes/ledgerRoutes");
 
 const app = express();
 
@@ -18,6 +19,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/products", productRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 app.use("/api/companies", companyRoutes);
+app.use("/api/ledgers", ledgerRoutes);
 
 app.get("/", (req, res) => {
   res.send("SmartERP Backend Running");
