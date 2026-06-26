@@ -1,7 +1,7 @@
-import Dashboard from "@/pages/Dashboard";
+import Ledgers from "@/pages/Ledgers";
 
 function App() {
-  return <Dashboard />;
+  return <Ledgers />;
 }
 
 export default App;
