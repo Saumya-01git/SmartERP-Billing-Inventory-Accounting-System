@@ -1,0 +1,17 @@
+CREATE TABLE IF NOT EXISTS stock_items (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  company_id INTEGER REFERENCES companies(id) ON DELETE CASCADE,
+
+  item_name VARCHAR(255) NOT NULL,
+  sku VARCHAR(100),
+  unit VARCHAR(50) DEFAULT 'PCS',
+  purchase_price DECIMAL(12,2) DEFAULT 0,
+  selling_price DECIMAL(12,2) DEFAULT 0,
+  quantity INTEGER DEFAULT 0,
+  gst_percentage DECIMAL(5,2) DEFAULT 0,
+  description TEXT,
+
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
