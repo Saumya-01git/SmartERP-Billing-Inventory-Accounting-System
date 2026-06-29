@@ -18,4 +18,4 @@ SmartERP is a Tally-inspired web application for billing, inventory, accounting,
 Frontend: React + Vite + Tailwind CSS  
 Backend: Node.js + Express  
 Database: PostgreSQL  
-Authentication: JWT
+Authentication: JWT ...
