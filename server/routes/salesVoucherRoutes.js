@@ -19,13 +19,20 @@ router.post("/", auth, async (req, res) => {
     } = req.body;
 
     // Generate Voucher Number
-    const countResult = await client.query(
-      "SELECT COUNT(*) FROM sales_vouchers"
-    );
+    const lastVoucher = await client.query(
+  `SELECT id
+   FROM sales_vouchers
+   ORDER BY id DESC
+   LIMIT 1`
+);
 
-    const voucherNumber =
-      "SAL-" +
-      String(Number(countResult.rows[0].count) + 1).padStart(6, "0");
+const nextNumber =
+  lastVoucher.rows.length > 0
+    ? lastVoucher.rows[0].id + 1
+    : 1;
+
+const voucherNumber =
+  "SAL-" + String(nextNumber).padStart(6, "0");
 
     let subtotal = 0;
     let gstAmount = 0;
@@ -146,42 +153,6 @@ router.get("/", auth, async (req, res) => {
     res.json(result.rows);
   } catch (err) {
     console.error(err);
-    res.status(500).json({
-      message: "Server Error",
-    });
-  }
-});
-
-// Get Single Sales Voucher
-router.get("/:id", auth, async (req, res) => {
-  try {
-    const voucherResult = await pool.query(
-      `SELECT * FROM sales_vouchers
-       WHERE id = $1 AND user_id = $2`,
-      [req.params.id, req.user.id]
-    );
-
-    if (voucherResult.rows.length === 0) {
-      return res.status(404).json({
-        message: "Sales Voucher not found",
-      });
-    }
-
-    const itemsResult = await pool.query(
-      `SELECT *
-       FROM sales_voucher_items
-       WHERE sales_voucher_id = $1`,
-      [req.params.id]
-    );
-
-    res.json({
-      voucher: voucherResult.rows[0],
-      items: itemsResult.rows,
-    });
-
-  } catch (err) {
-    console.error(err);
-
     res.status(500).json({
       message: "Server Error",
     });

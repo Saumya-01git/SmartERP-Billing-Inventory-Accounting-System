@@ -19,13 +19,20 @@ router.post("/", auth, async (req, res) => {
     } = req.body;
 
     // Generate Voucher Number
-    const countResult = await client.query(
-      "SELECT COUNT(*) FROM purchase_vouchers"
-    );
+    const lastVoucher = await client.query(
+  `SELECT id
+   FROM purchase_vouchers
+   ORDER BY id DESC
+   LIMIT 1`
+);
 
-    const voucherNumber =
-      "PUR-" +
-      String(Number(countResult.rows[0].count) + 1).padStart(6, "0");
+const nextNumber =
+  lastVoucher.rows.length > 0
+    ? lastVoucher.rows[0].id + 1
+    : 1;
+
+const voucherNumber =
+  "PUR-" + String(nextNumber).padStart(6, "0");
 
     let subtotal = 0;
     let gstAmount = 0;
