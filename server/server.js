@@ -12,6 +12,7 @@ const groupRoutes = require("./routes/groupRoutes");
 const stockRoutes = require("./routes/stockRoutes");
 const purchaseVoucherRoutes = require("./routes/purchaseVoucherRoutes");
 const salesVoucherRoutes = require("./routes/salesVoucherRoutes");
+const billingRoutes = require("./routes/billingRoutes");
 
 const app = express();
 
@@ -28,6 +29,7 @@ app.use("/api/groups", groupRoutes);
 app.use("/api/stock", stockRoutes);
 app.use("/api/purchase-vouchers", purchaseVoucherRoutes);
 app.use("/api/sales-vouchers", salesVoucherRoutes);
+app.use("/api/billing", billingRoutes);
 
 app.get("/", (req, res) => {
   res.send("SmartERP Backend Running");
